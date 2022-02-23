@@ -7,6 +7,7 @@ setwd("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\")
   #supplement nan data
   #knn interpolation
   library("mice")
+  library("ggplot2")
   
   #preprocess climate data
   {
@@ -354,10 +355,18 @@ setwd("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\")
       clim_pet_9_com = read.csv("clim_pet_64_19_grow_9.csv")
     }
     
-    ppet_scale <- scale(clim_pet_9_com$P_PET)
+    ppet_scale <- scale(clim_pet_4_9_com$P_PET)
     
     ppet_scale_df <- data.frame(ppet_scale = ppet_scale[,1])
-    
+
+
+    clim_pet_ppet_4_8_com = cbind(clim_pet_4_8_com,ppet_scale_df)
+    clim_pet_ppet_4_9_com = cbind(clim_pet_4_9_com,ppet_scale_df)
+    clim_pet_ppet_4_com = cbind(clim_pet_4_com,ppet_scale_df)
+    clim_pet_ppet_5_com = cbind(clim_pet_5_com,ppet_scale_df)
+    clim_pet_ppet_6_com = cbind(clim_pet_6_com,ppet_scale_df)
+    clim_pet_ppet_7_com = cbind(clim_pet_7_com,ppet_scale_df)        
+    clim_pet_ppet_8_com = cbind(clim_pet_8_com,ppet_scale_df)
     clim_pet_ppet_9_com = cbind(clim_pet_9_com,ppet_scale_df)
     
     write.csv(clim_pet_ppet_4_9_com,"clim_pet_ppet_4_9_com.csv")
@@ -371,7 +380,7 @@ setwd("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\")
   }
   
   #monthly output
-  library("ggplot2")
+
   p1 <- ggplot()+
     #   geom_ribbon(data = npp_GLC_de_scaled_df,aes(x=Year,ymin= min, 
     #                                                ymax= max),fill = "green",alpha = 0.4)+
@@ -394,6 +403,8 @@ setwd("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\")
     theme(legend.position = c(0.8,0.18),legend.text = element_text(size = 12))+
     theme(axis.text = element_text(size =12),axis.text.x = element_text(size =12),axis.text.y = element_text(size =12),axis.title.x=element_text(size=12),axis.title.y=element_text(size=12))
   
+#4_8
+  {
   p_pdsi <- ggplot()+
     #   geom_ribbon(data = npp_GLC_de_scaled_df,aes(x=Year,ymin= min, 
     #                                                ymax= max),fill = "green",alpha = 0.4)+
@@ -417,7 +428,42 @@ setwd("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\")
     theme(panel.grid.major=element_line(colour=NA))+
     theme(legend.position = c(0.15,0.8),legend.text = element_text(size = 12))+
     theme(axis.text = element_text(size =12),axis.text.x = element_text(size =12),axis.text.y = element_text(size =12),axis.title.x=element_text(size=12),axis.title.y=element_text(size=12))
-  
+}
+
+#4_9
+  {
+    clim_pet_ppet_4_9_com = read.csv("clim_pet_ppet_4_9_com.csv")
+    
+    pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\Figure_for_draft\\fig1_draft_updated_4_9_only_2022_2_24.pdf",width =10,height = 5)
+    
+    p_pdsi <- ggplot()+
+      #   geom_ribbon(data = npp_GLC_de_scaled_df,aes(x=Year,ymin= min, 
+      #                                                ymax= max),fill = "green",alpha = 0.4)+
+      #    geom_ribbon(data = dVegC_GLC_de_scaled_df,aes(x=Year,ymin= min, 
+      #                                                  ymax= max),fill = "pink",alpha = 0.4)+
+      geom_line(data = clim_pet_ppet_4_9_com,aes(x=year,y= PET_scale,color = "z"),linetype="solid",size = 1,alpha=0.75)+
+      geom_line(data = clim_pet_ppet_4_9_com,aes(x=year, 
+                                                 y=t_scale,color = "royalblue4"),linetype="solid",size =1)+
+      geom_line(data = clim_pet_ppet_4_9_com,aes(x=year,y= p_scale,color = "green4"),linetype="solid",size = 1)+
+      geom_line(data = clim_pet_ppet_4_9_com,aes(x=year,y= ppet_scale,color = "yellow4"),linetype="solid",size = 1)+  
+      
+      #    geom_line(data = dVegC_GLC_de_scaled_df,aes(x=Year,y= mean,color = "lightcoral"),linetype="solid",size = 1)+
+      ylab("z-score")+
+      xlab("Year")+
+      xlim(1955,2020)+
+      ylim(-4,4)+
+      #scale_fill_identity(name = 'the fill', guide = 'legend',labels = c('m1')) #+
+      scale_color_manual(name = '', 
+                         values =c("royalblue4"="royalblue4","green4" = "green4","yellow4" = "#edae49","z" = "#F8766D"), labels = c('Prep_4_9','Temp_4_9','PPET_4_9','PET_4_9'))+
+      theme_set(theme_bw())+
+      theme(panel.grid.major=element_line(colour=NA))+
+      theme(legend.position = c(0.15,0.8),legend.text = element_text(size = 16))+
+      theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
+    
+    p_pdsi
+    dev.off()
+  } 
+      
 }
 
 #xylo data input
