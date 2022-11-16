@@ -5122,12 +5122,6 @@ setwd("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\")
 }
 
 
-#combine leaf & wood & GDD & CDD
-{
-  
-  
-}
-
 #daily fluxes
 {
   flux <- read.csv("hf004-02-filled_updated.csv")
@@ -6021,8 +6015,8 @@ library("ggplot2")
                            values =c("a"="blue","b" = "darkgreen","c" = "darkred"), labels = c('2017','2018',"2019"))+
         theme_set(theme_bw())+
         theme(panel.grid.major=element_line(colour=NA))+
-        theme(legend.position = "none",legend.text = element_text(size = 12))+
-        theme(axis.text = element_text(size =12),axis.text.x = element_text(size =12),axis.text.y = element_text(size =12),axis.title.x=element_text(size=12),axis.title.y=element_text(size=12))
+        theme(legend.position = "none",legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
       
       p1
       dev.off()
@@ -6109,8 +6103,8 @@ library("ggplot2")
                            values =c("a"="#B10026","b" = "#FC4E2A","c" = "#FEB24C"), labels = c('2017','2018',"2019"))+
         theme_set(theme_bw())+
         theme(panel.grid.major=element_line(colour=NA))+
-        theme(legend.position = "none",legend.text = element_text(size = 12))+
-        theme(axis.text = element_text(size =12),axis.text.x = element_text(size =12),axis.text.y = element_text(size =12),axis.title.x=element_text(size=12),axis.title.y=element_text(size=12))
+        theme(legend.position = "none",legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
       
       p1
       dev.off()
@@ -6173,7 +6167,95 @@ library("ggplot2")
       p3
       dev.off()
     }
-    
+
+    #EWMZ no phenology new color code bigger labels
+    {
+      pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\PIST_EWMZ_3Yrs_renew_2022_2_24_no_phenology.pdf",width =10,height = 5)  
+      
+      p1 <- ggplot() + 
+        
+        geom_ribbon(data = HF2019_pine_gam_mean_sd_com,aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                           ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#FEB24C",alpha = 0.2)+
+        
+        geom_ribbon(data = HF2018_pine_gam_mean_sd_com,aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                           ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#FC4E2A",alpha = 0.2)+
+        geom_ribbon(data = HF2017_pine_gam_mean_sd_com,aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                           ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#B10026",alpha = 0.2)+
+        geom_line(data = HF2017_pine_gam_mean_sd_com,aes(x=DY, y=gam_EWMZ_mean,color="a"),size = 1)+
+        geom_line(data = HF2018_pine_gam_mean_sd_com,aes(x=DY, y=gam_EWMZ_mean,color="b"),size = 1)+
+        geom_line(data = HF2019_pine_gam_mean_sd_com,aes(x=DY, y=gam_EWMZ_mean,color="c"),size = 1)+
+        xlim(80,320)+
+        ylim(-600,4000)+
+        ylab("Width of the forming annual ring/μm")+
+        scale_color_manual(name = '', 
+                           values =c("a"="#B10026","b" = "#FC4E2A","c" = "#FEB24C"), labels = c('2017','2018',"2019"))+
+        theme_set(theme_bw())+
+        theme(panel.grid.major=element_line(colour=NA))+
+        theme(legend.position = "none",legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
+      
+      p1
+      dev.off()
+      
+      pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\QURU_EWMZ_3Yrs_renew_2022_2_24_no_phenology.pdf",width =10,height = 5)
+      
+      p2 <- ggplot() + 
+        
+        geom_ribbon(data = subset(gpp_oak_2019,!is.na(gam_EWMZ_mean)),aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                                          ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill =  "#9EC9E2",alpha = 0.2)+
+        
+        geom_ribbon(data = subset(gpp_oak_2018,!is.na(gam_EWMZ_mean)),aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                                          ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#3C93C2",alpha = 0.2)+
+        geom_ribbon(data = subset(gpp_oak_2017,!is.na(gam_EWMZ_mean)),aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                                          ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#0D4A70",alpha = 0.2)+
+        geom_line(data = subset(gpp_oak_2017,!is.na(gam_EWMZ_mean)),aes(x=DY, y=gam_EWMZ_mean,color="a"),size = 1)+
+        geom_line(data = subset(gpp_oak_2018,!is.na(gam_EWMZ_mean)),aes(x=DY, y=gam_EWMZ_mean,color="b"),size = 1)+
+        geom_line(data = subset(gpp_oak_2019,!is.na(gam_EWMZ_mean)),aes(x=DY, y=gam_EWMZ_mean,color="c"),size = 1)+
+        #geom_line(data = subset(gpp_oak_2017,!is.na(gam_EWMZ_mean)),aes(x=DY, y=gpp_ww_acc,color="d"),size = 1)+
+        #geom_line(data = subset(gpp_oak_2018,!is.na(gam_EWMZ_mean)),aes(x=DY, y=gpp_ww_acc,color="e"),size = 1)+
+        #geom_line(data = subset(gpp_oak_2019,!is.na(gam_EWMZ_mean)),aes(x=DY, y=gpp_ww_acc,color="f"),size = 1)+
+        xlim(80,320)+
+        ylim(-600,4000)+
+        ylab("Width of the forming annual ring/μm")+
+        scale_color_manual(name = '', 
+                           values =c("a"="#0D4A70","b" = "#3C93C2","c" = "#9EC9E2"), labels = c('2017','2018',"2019"))+
+        theme_set(theme_bw())+
+        theme(panel.grid.major=element_line(colour=NA))+
+        theme(legend.position = c(0.15,0.8),legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
+      
+      p2
+      dev.off()
+      
+      
+      
+      pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\ACRU_EWMZ_3Yrs_renew_2022_2_24_no_phenology.pdf",width =10,height = 5)
+      p3 <- ggplot() + 
+        
+        geom_ribbon(data = HF2019_maple_gam_mean_sd_com,aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                            ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#9CCEA7",alpha = 0.2)+
+        
+        geom_ribbon(data = HF2018_maple_gam_mean_sd_com,aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                            ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#40AD5A",alpha = 0.2)+
+        geom_ribbon(data = HF2017_maple_gam_mean_sd_com,aes(x=DY,ymin= gam_EWMZ_mean - gam_EWMZ_sd, 
+                                                            ymax= gam_EWMZ_mean + gam_EWMZ_sd),fill = "#06592A",alpha = 0.2)+
+        geom_line(data = HF2017_maple_gam_mean_sd_com,aes(x=DY, y=gam_EWMZ_mean,color="a"),size = 1)+
+        geom_line(data = HF2018_maple_gam_mean_sd_com,aes(x=DY, y=gam_EWMZ_mean,color="b"),size = 1)+
+        geom_line(data = HF2019_maple_gam_mean_sd_com,aes(x=DY, y=gam_EWMZ_mean,color="c"),size = 1)+
+        xlim(80,320)+
+        ylim(-600,4000)+
+        ylab("Width of the forming annual ring/μm")+
+        scale_color_manual(name = '', 
+                           values =c("a"="#06592A","b" = "#40AD5A","c" = "#9CCEA7"), labels = c('2017','2018',"2019"))+
+        theme_set(theme_bw())+
+        theme(panel.grid.major=element_line(colour=NA))+
+        theme(legend.position = "none",legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16)) 
+      
+      p3
+      dev.off()
+    }    
+        
     
     #CZ
     {
@@ -6483,7 +6565,121 @@ library("ggplot2")
       p3_EZ
       dev.off()
     } 
+ 
+    #EZ new color codes  
+    {
+      pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\PIST_EZ_3Yrs_2022_2_24.pdf",width =6,height = 5)
+      
+      p1_EZ <- ggplot() + 
+        
+        geom_ribbon(data = HF2019_pine_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                           ymax= gam_EZ_mean + gam_EZ_sd),fill = "#FEB24C",alpha = 0.2)+
+        
+        geom_ribbon(data = HF2018_pine_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                           ymax= gam_EZ_mean + gam_EZ_sd),fill = "#FC4E2A",alpha = 0.2)+
+        geom_ribbon(data = HF2017_pine_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                           ymax= gam_EZ_mean + gam_EZ_sd),fill = "#B10026",alpha = 0.2)+
+        geom_line(data = HF2017_pine_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="a"),size = 1)+
+        geom_line(data = HF2018_pine_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="b"),size = 1)+
+        geom_line(data = HF2019_pine_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="c"),size = 1)+
+        # geom_point(data = Pheno_PINE_2017_df,aes(x=bE_mean,y=-30),color = "blue")+
+        # geom_errorbarh(data = Pheno_PINE_2017_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-30), width=.2,color = "blue")+
+        # geom_point(data = Pheno_PINE_2018_df,aes(x=bE_mean,y=-40),color = "darkgreen")+
+        # geom_errorbarh(data = Pheno_PINE_2018_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-40), width=.2,color = "darkgreen")+
+        # geom_point(data = Pheno_PINE_2019_df,aes(x=bE_mean,y=-50),color = "darkred")+
+        # geom_errorbarh(data = Pheno_PINE_2019_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-50), width=.2,color = "darkred")+
+        # geom_point(data = Pheno_PINE_2017_df,aes(x=cE_mean,y=-30),color = "blue")+
+        # geom_errorbarh(data = Pheno_PINE_2017_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-30), width=.2,color = "blue")+
+        # geom_point(data = Pheno_PINE_2018_df,aes(x=cE_mean,y=-40),color = "darkgreen")+
+        # geom_errorbarh(data = Pheno_PINE_2018_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-40), width=.2,color = "darkgreen")+
+        # geom_point(data = Pheno_PINE_2019_df,aes(x=cE_mean,y=-50),color = "darkred")+
+      # geom_errorbarh(data = Pheno_PINE_2019_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-50), width=.2,color = "darkred")+
+      xlim(98,300)+
+        ylim(-30,200)+
+        ylab("Zone width/μm")+
+        scale_color_manual(name = '', 
+                           values =c("a"="#B10026","b" = "#FC4E2A","c" = "#FEB24C"), labels = c('2017','2018',"2019"))+
+        theme_set(theme_bw())+
+        theme(panel.grid.major=element_line(colour=NA))+
+        theme(legend.position = c(0.85,0.85),legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
+      p1_EZ
+      dev.off()
+      
+      pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\QURU_EZ_3Yrs_2022_2_24.pdf",width =6,height = 5)
+      p2_EZ <- ggplot() + 
+        geom_ribbon(data = HF2019_oak_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                          ymax= gam_EZ_mean + gam_EZ_sd),fill = "#9EC9E2",alpha = 0.2)+
+        
+        geom_ribbon(data = HF2018_oak_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                          ymax= gam_EZ_mean + gam_EZ_sd),fill = "#3C93C2",alpha = 0.2)+
+        geom_ribbon(data = HF2017_oak_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                          ymax= gam_EZ_mean + gam_EZ_sd),fill = "#0D4A70",alpha = 0.2)+
+        geom_line(data = HF2017_oak_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="a"),size = 1)+
+        geom_line(data = HF2018_oak_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="b"),size = 1)+
+        geom_line(data = HF2019_oak_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="c"),size = 1)+
+        # geom_point(data = Pheno_OAK_2017_df,aes(x=bE_mean,y=-30),color = "blue")+
+        # geom_errorbarh(data = Pheno_OAK_2017_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-30), width=.2,color = "blue")+
+        # geom_point(data = Pheno_OAK_2018_df,aes(x=bE_mean,y=-40),color = "darkgreen")+
+        # geom_errorbarh(data = Pheno_OAK_2018_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-40), width=.2,color = "darkgreen")+
+        # geom_point(data = Pheno_OAK_2019_df,aes(x=bE_mean,y=-50),color = "darkred")+
+        # geom_errorbarh(data = Pheno_OAK_2019_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-50), width=.2,color = "darkred")+
+        # geom_point(data = Pheno_OAK_2017_df,aes(x=cE_mean,y=-30),color = "blue")+
+        # geom_errorbarh(data = Pheno_OAK_2017_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-30), width=.2,color = "blue")+
+        # geom_point(data = Pheno_OAK_2018_df,aes(x=cE_mean,y=-40),color = "darkgreen")+
+        # geom_errorbarh(data = Pheno_OAK_2018_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-40), width=.2,color = "darkgreen")+
+        # geom_point(data = Pheno_OAK_2019_df,aes(x=cE_mean,y=-50),color = "darkred")+
+      # geom_errorbarh(data = Pheno_OAK_2019_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-50), width=.2,color = "darkred")+
+      xlim(98,300)+
+        ylim(-30,200)+
+        ylab("Zone width/μm")+
+        scale_color_manual(name = '', 
+                           values =c("a"="#0D4A70","b" = "#3C93C2","c" = "#9EC9E2"), labels = c('2017','2018',"2019"))+
+        theme_set(theme_bw())+
+        theme(panel.grid.major=element_line(colour=NA))+
+        theme(legend.position = c(0.85,0.85),legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))
+      p2_EZ
+      dev.off()
+      
+      pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\ACRU_EZ_3Yrs_2022_2_24.pdf",width =6,height = 5)
+      p3_EZ <- ggplot() + 
+        geom_ribbon(data = HF2019_maple_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                            ymax= gam_EZ_mean + gam_EZ_sd),fill = "#9CCEA7",alpha = 0.2)+
+        
+        geom_ribbon(data = HF2018_maple_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                            ymax= gam_EZ_mean + gam_EZ_sd),fill = "#40AD5A",alpha = 0.2)+
+        geom_ribbon(data = HF2017_maple_gam_mean_sd_com,aes(x=DY,ymin= gam_EZ_mean - gam_EZ_sd, 
+                                                            ymax= gam_EZ_mean + gam_EZ_sd),fill = "#06592A",alpha = 0.2)+
+        geom_line(data = HF2017_maple_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="a"),size = 1)+
+        geom_line(data = HF2018_maple_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="b"),size = 1)+
+        geom_line(data = HF2019_maple_gam_mean_sd_com,aes(x=DY, y=gam_EZ_mean,color="c"),size = 1)+
+        # geom_point(data = Pheno_MAPLE_2017_df,aes(x=bE_mean,y=-30),color = "blue")+
+        # geom_errorbarh(data = Pheno_MAPLE_2017_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-30), width=.2,color = "blue")+
+        # geom_point(data = Pheno_MAPLE_2018_df,aes(x=bE_mean,y=-40),color = "darkgreen")+
+        # geom_errorbarh(data = Pheno_MAPLE_2018_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-40), width=.2,color = "darkgreen")+
+        # geom_point(data = Pheno_MAPLE_2019_df,aes(x=bE_mean,y=-50),color = "darkred")+
+        # geom_errorbarh(data = Pheno_MAPLE_2019_df,aes(xmin=bE_mean-bE_sd, xmax=bE_mean+bE_sd,y=-50), width=.2,color = "darkred")+
+        # geom_point(data = Pheno_MAPLE_2017_df,aes(x=cE_mean,y=-30),color = "blue")+
+        # geom_errorbarh(data = Pheno_MAPLE_2017_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-30), width=.2,color = "blue")+
+        # geom_point(data = Pheno_MAPLE_2018_df,aes(x=cE_mean,y=-40),color = "darkgreen")+
+        # geom_errorbarh(data = Pheno_MAPLE_2018_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-40), width=.2,color = "darkgreen")+
+        # geom_point(data = Pheno_MAPLE_2019_df,aes(x=cE_mean,y=-50),color = "darkred")+
+      # geom_errorbarh(data = Pheno_MAPLE_2019_df,aes(xmin=cE_mean-cE_sd, xmax=cE_mean+cE_sd,y=-50), width=.2,color = "darkred")+
+      xlim(98,300)+
+        ylim(-30,200)+
+        ylab("Zone width/μm")+
+        scale_color_manual(name = '', 
+                           values =c("a"="#06592A","b" = "#40AD5A","c" = "#9CCEA7"), labels = c('2017','2018',"2019"))+
+        theme_set(theme_bw())+
+        theme(panel.grid.major=element_line(colour=NA))+
+        theme(legend.position = c(0.85,0.85),legend.text = element_text(size = 16))+
+        theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))  
+      p3_EZ
+      dev.off()
+    }     
     
+       
     #ring width plot three years
     RW_3yrs_df = data.frame("Year" = c(2017,2018,2019),"QURU_mean" = c(1437.075,2415.425,2572.7125),"ACRU_mean" = c(1066,2409.2667,2143.55),"PIST_mean" = c(1253.7033,1447.1333,1296.35),"QURU_sd" = c(305.9351,504.2537,866.9513),"ACRU_sd" = c(440.7488,1700.8485,633.4869),"PIST_sd" = c(383.1682,794.2405,616.8066))
     {
@@ -7159,6 +7355,159 @@ library("ggplot2")
           theme(legend.position = c(0.95,0.5),legend.text = element_text(size = 8))+
           theme(panel.grid.major=element_line(colour=NA))+
           theme(axis.text = element_text(size =12),axis.text.x = element_text(size =12),axis.text.y = element_text(size =16),axis.title.x=element_text(size=12),axis.title.y=element_text(size=16))+
+          coord_flip()
+        p_pheno_PIST_range
+        
+        dev.off()
+      }   
+      
+      
+    }  
+    #new color code with linerange and larger labels
+    {
+      
+      #QURU
+      {
+        pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\QURU_Pheno_renew_2022_3_8.pdf",width =12,height = 4)
+        p_pheno_QURU_range = ggplot()+
+          #wood phenology enlargement
+          geom_linerange(data = Pheno_OAK_2017_df, aes(x = 300,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_OAK_2017_df,aes(x = 300, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_OAK_2017_df,aes(x = 300, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          geom_linerange(data = Pheno_OAK_2018_df, aes(x = 200,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_OAK_2018_df,aes(x = 200, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_OAK_2018_df,aes(x = 200, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          geom_linerange(data = Pheno_OAK_2019_df, aes(x = 100,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_OAK_2019_df,aes(x = 100, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_OAK_2019_df,aes(x = 100, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          #wood phenology wallthickening
+          geom_linerange(data = Pheno_OAK_2017_df, aes(x = 280,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_OAK_2017_df,aes(x = 280, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_OAK_2017_df,aes(x = 280, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          geom_linerange(data = Pheno_OAK_2018_df, aes(x = 180,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_OAK_2018_df,aes(x = 180, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_OAK_2018_df,aes(x = 180, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          geom_linerange(data = Pheno_OAK_2019_df, aes(x = 80,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_OAK_2019_df,aes(x = 80, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_OAK_2019_df,aes(x = 80, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          #leaf phenology
+          geom_linerange(data = l_pheno_QURU_17_Tim_df, aes(x = 260,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_QURU_17_Tim_df,aes(x = 260, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_QURU_17_Tim_df,aes(x = 260, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          geom_linerange(data = l_pheno_QURU_18_Tim_df, aes(x = 160,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_QURU_18_Tim_df,aes(x = 160, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_QURU_18_Tim_df,aes(x = 160, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          geom_linerange(data = l_pheno_QURU_19_Tim_df, aes(x = 60,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_QURU_19_Tim_df,aes(x = 60, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_QURU_19_Tim_df,aes(x = 60, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          ylab("DY")+
+          xlab("Year")+
+          ylim(90,330)+
+          scale_color_manual(name = '', labels = c("W_e","W_w","L"),
+                             values =c("a"="#000066","b" = "#0000CC","c" = "#99CCFF"))+
+          scale_x_continuous(limits = c(50,320),breaks = round(seq(80,280, by = 100),1),labels = c("2019","2018","2017"))+
+          theme_set(theme_bw())+
+          theme(legend.position = c(0.95,0.5),legend.text = element_text(size = 12))+
+          theme(panel.grid.major=element_line(colour=NA))+
+          theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))+
+          coord_flip()
+        p_pheno_QURU_range
+        
+        dev.off()
+      }
+      #ACRU
+      {
+        pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\ACRU_Pheno_renew_2022_3_8.pdf",width =12,height = 4)
+        p_pheno_ACRU_range = ggplot()+
+          #wood phenology enlargement
+          geom_linerange(data = Pheno_MAPLE_2017_df, aes(x = 300,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_MAPLE_2017_df,aes(x = 300, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_MAPLE_2017_df,aes(x = 300, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          geom_linerange(data = Pheno_MAPLE_2018_df, aes(x = 200,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_MAPLE_2018_df,aes(x = 200, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_MAPLE_2018_df,aes(x = 200, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          geom_linerange(data = Pheno_MAPLE_2019_df, aes(x = 100,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_MAPLE_2019_df,aes(x = 100, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_MAPLE_2019_df,aes(x = 100, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          #wood phenology wallthickening
+          geom_linerange(data = Pheno_MAPLE_2017_df, aes(x = 280,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_MAPLE_2017_df,aes(x = 280, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_MAPLE_2017_df,aes(x = 280, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          geom_linerange(data = Pheno_MAPLE_2018_df, aes(x = 180,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_MAPLE_2018_df,aes(x = 180, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_MAPLE_2018_df,aes(x = 180, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          geom_linerange(data = Pheno_MAPLE_2019_df, aes(x = 80,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_MAPLE_2019_df,aes(x = 80, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_MAPLE_2019_df,aes(x = 80, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          #leaf phenology
+          geom_linerange(data = l_pheno_ACRU_17_Tim_df, aes(x = 260,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_ACRU_17_Tim_df,aes(x = 260, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_ACRU_17_Tim_df,aes(x = 260, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          geom_linerange(data = l_pheno_ACRU_18_Tim_df, aes(x = 160,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_ACRU_18_Tim_df,aes(x = 160, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_ACRU_18_Tim_df,aes(x = 160, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          geom_linerange(data = l_pheno_ACRU_19_Tim_df, aes(x = 60,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_ACRU_19_Tim_df,aes(x = 60, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_ACRU_19_Tim_df,aes(x = 60, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          ylab("DY")+
+          xlab("Year")+
+          ylim(90,330)+
+          scale_color_manual(name = '', labels = c("W_e","W_w","L"),
+                             values =c("a"="#003300","b" = "#339966","c" = "#99CC00"))+
+          scale_x_continuous(limits = c(50,320),breaks = round(seq(80,280, by = 100),1),labels = c("2019","2018","2017"))+
+          theme_set(theme_bw())+
+          theme(legend.position = c(0.95,0.5),legend.text = element_text(size = 12))+
+          theme(panel.grid.major=element_line(colour=NA))+
+          theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))+
+          coord_flip()
+        p_pheno_ACRU_range
+        
+        dev.off()
+      }    
+      #PIST
+      {
+        pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\PIST_Pheno_renew_2022_3_8.pdf",width =12,height = 4)
+        p_pheno_PIST_range = ggplot()+
+          #wood phenology enlargement
+          geom_linerange(data = Pheno_PINE_2017_df, aes(x = 300,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_PINE_2017_df,aes(x = 300, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_PINE_2017_df,aes(x = 300, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          geom_linerange(data = Pheno_PINE_2018_df, aes(x = 200,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_PINE_2018_df,aes(x = 200, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_PINE_2018_df,aes(x = 200, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          geom_linerange(data = Pheno_PINE_2019_df, aes(x = 100,ymin = bE_mean, ymax = cE_mean,color = "a"),size = 6)+
+          geom_errorbar(data = Pheno_PINE_2019_df,aes(x = 100, ymin=bE_mean-bE_sd, ymax=bE_mean+bE_sd,color = "a", width=.1))+
+          geom_errorbar(data = Pheno_PINE_2019_df,aes(x = 100, ymin=cE_mean-cE_sd, ymax=cE_mean+cE_sd,color = "a", width=.1))+
+          #wood phenology wallthickening
+          geom_linerange(data = Pheno_PINE_2017_df, aes(x = 280,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_PINE_2017_df,aes(x = 280, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_PINE_2017_df,aes(x = 280, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          geom_linerange(data = Pheno_PINE_2018_df, aes(x = 180,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_PINE_2018_df,aes(x = 180, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_PINE_2018_df,aes(x = 180, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          geom_linerange(data = Pheno_PINE_2019_df, aes(x = 80,ymin = bW_mean, ymax = cW_mean,color = "b"),size = 6)+
+          geom_errorbar(data = Pheno_PINE_2019_df,aes(x = 80, ymin=bW_mean-bW_sd, ymax=bW_mean+bW_sd,color = "b", width=.1))+
+          geom_errorbar(data = Pheno_PINE_2019_df,aes(x = 80, ymin=cW_mean-cW_sd, ymax=cW_mean+cW_sd,color = "b", width=.1))+
+          #leaf phenology
+          geom_linerange(data = l_pheno_PIST_17_Tim_df, aes(x = 260,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_PIST_17_Tim_df,aes(x = 260, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_PIST_17_Tim_df,aes(x = 260, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          geom_linerange(data = l_pheno_PIST_18_Tim_df, aes(x = 160,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_PIST_18_Tim_df,aes(x = 160, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_PIST_18_Tim_df,aes(x = 160, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          geom_linerange(data = l_pheno_PIST_19_Tim_df, aes(x = 60,ymin = bb.doy_mean, ymax = lf.doy_mean,color = "c"),size = 6)+
+          geom_errorbar(data = l_pheno_PIST_19_Tim_df,aes(x = 60, ymin=bb.doy_mean-bb.doy_sd, ymax=bb.doy_mean+bb.doy_sd,color = "c", width=.1))+
+          geom_errorbar(data = l_pheno_PIST_19_Tim_df,aes(x = 60, ymin=lf.doy_mean-lf.doy_sd, ymax=lf.doy_mean+lf.doy_sd,color = "c", width=.1))+
+          ylab("DY")+
+          xlab("Year")+
+          ylim(90,330)+
+          scale_color_manual(name = '', labels = c("W_e","W_w","L"),
+                             values =c("a"="#660000","b" = "#CC0000","c" = "#FF9999"))+
+          scale_x_continuous(limits = c(50,320),breaks = round(seq(80,280, by = 100),1),labels = c("2019","2018","2017"))+
+          theme_set(theme_bw())+
+          theme(legend.position = c(0.95,0.5),legend.text = element_text(size = 12))+
+          theme(panel.grid.major=element_line(colour=NA))+
+          theme(axis.text = element_text(size =16),axis.text.x = element_text(size =16),axis.text.y = element_text(size =16),axis.title.x=element_text(size=16),axis.title.y=element_text(size=16))+
           coord_flip()
         p_pheno_PIST_range
         
@@ -7875,11 +8224,12 @@ library("ggplot2")
   mix_wp_bE_Year_Species_mult = lmerTest::lmer(data = Pheno_wood_df,formula = bE ~ Year*Species + (1|Tree))
   anova(mix_wp_bE_None,mix_wp_bE_Year,mix_wp_bE_Species,mix_wp_bE_Year_Species_add,mix_wp_bE_Year_Species_mult)
   
-  
+  mix_wp_bW_None = lmerTest::lmer(data = Pheno_wood_df,formula = bW ~ (1|Tree))
   mix_wp_bW_Year = lmerTest::lmer(data = Pheno_wood_df,formula = bW ~ Year + (1|Tree))
   mix_wp_bW_Species = lmerTest::lmer(data = Pheno_wood_df,formula = bW ~ Species + (1|Tree))
-  mix_wp_bW_Year_Species = lmerTest::lmer(data = Pheno_wood_df,formula = bW ~ Year+Species + (1|Tree))
-  AIC(mix_wp_bW_Year,mix_wp_bW_Species,mix_wp_bW_Year_Species)
+  mix_wp_bW_Year_Species_add = lmerTest::lmer(data = Pheno_wood_df,formula = bW ~ Year+Species + (1|Tree))
+  mix_wp_bW_Year_Species_mult = lmerTest::lmer(data = Pheno_wood_df,formula = bW ~ Year*Species + (1|Tree))
+  anova(mix_wp_bW_None,mix_wp_bW_Year,mix_wp_bW_Species,mix_wp_bW_Year_Species_add,mix_wp_bW_Year_Species_mult)
   
   mix_wp_bM_Year = lmerTest::lmer(data = Pheno_wood_df,formula = bM ~ Year + (1|Tree))
   mix_wp_bM_Species = lmerTest::lmer(data = Pheno_wood_df,formula = bM ~ Species + (1|Tree))
@@ -9726,7 +10076,7 @@ library("ggplot2")
     # Q15    64.91    45.84    75.14
     
     
-    #growth length
+    #growth length enlargement
     #        17       18       19
     # P7     104      118      111   
     # P16    111      104      63
@@ -9752,7 +10102,35 @@ library("ggplot2")
     # Q12    63       97       NA
     # Q13    63       112      118
     # Q15    71       84       111
+
+    #growth length enlargement + wall-thickening
+    #        17       18       19
+    # P7     146      160      140   
+    # P16    139      139      133
+    # P20    160      139      146
+    # P21    132      85       90
+    # P25    139      146      139
+    # P26    146      153      140
     
+    #        17       18       19 
+    # A8     78       94       80
+    # A18    85       84       90
+    # A19    85       83       42
+    # A23    57       36       76
+    # A28    104      118       NA
+    # A29    84       83       76
+    
+    #        17       18       19
+    # Q5     119       NA       139            
+    # Q6     126      119       112
+    # Q9     118      125       125
+    # Q10    118      154       132
+    # Q11    91       125       115
+    # Q12    97       118       NA
+    # Q13    125      132       132
+    # Q15    126      139       139    
+    
+        
     #final ring width average after enlargement ends
     #     17                     18                     19
     # P7  1180.9                 2436.3                 1741.8
@@ -9779,16 +10157,34 @@ library("ggplot2")
     # Q12 1200.7                 2431.5                 2066.7
     # Q13 1409.7                 2860.7                 4009.5
     # Q15 1518.2                 2751.2                 3658.5
+    
+    #final ring width average after wall-thickening ends
+    #     17                     18                     19
+    # P7  1274.8                 2635                 1842.7
+    # P16 1322.1                 1156.3                 658
+    # P20 1681.9                 874.1                  1597.1
+    # P21 523                    173.3                 282.2
+    # P25 1895.4                 2182.3                 1309
+    # P26 1523.7                 2024.8                 1626.1
+    
+    #     17                     18                     19 
+    # A8  835.3                 1998.2                  468.3
+    # A18 1022.9                1428.2                  6928.4
+    # A19 870.2                 2239.2                  705.6
+    # A23 518.8                 702.3                   1166.9
+    # A28 1805.3                5635.5                  2375.3
+    # A29 1717.5                1900                    798.3
+    
+    #     17                     18                     19
+    # Q5  1337.7                 1624.2                 2925
+    # Q6  1308                   1859.5                 1730
+    # Q9  2301.7                 3226.8                 2621
+    # Q10 1262                   3042.8                 2559.5
+    # Q11 1335                 2172.9                 1538.3
+    # Q12 1230                 2413.8                 2519.8
+    # Q13 1507                 2840.8                 4083.4
+    # Q15 1570                 2642.5                 3970.8
   }
-  
-  #get specific values
-  {
-    
-    
-    
-  }
-  
-  
   
   P_17_enlarge_df = data.frame("max_grow" = c(93.11,53.56,100.85,33.72,	137.44,	57.05
   ), "mean_grow" = c(44.72,28.49,45.73,17.83,71.09,29.91),"duration" = c(104,63,84,112,104,111),"growth" = c(1180.9,	1242.22,	1449.1,	480.8,	1686.9,	1482.3))
@@ -9796,6 +10192,14 @@ library("ggplot2")
   ),"mean_grow" = c(66.7,40.88,57.45,23.06,75.8,63.02), "duration" = c(118,  36,  97,  84, 118,104),"growth" = c(2436.3,	1171.9,	903,	179.3,	2331.1,	1661.2))
   P_19_enlarge_df = data.frame("max_grow" = c(142.12,	115.66,	159.66,	54.97,	156.17,	99.96), "mean_grow" = c(85.78,	55.23,	65.8,	26.18,	63.36,	57.7),"duration" = c(111,63  ,83,  63,  90,  90),"growth" = c(1741.8,	634.7,	1565.1,	276.3,	1598.8,	1961.4))
   P_enlarge_df = rbind(P_17_enlarge_df,P_18_enlarge_df,P_19_enlarge_df)
+  
+  #dfs with growth duration with enlargement + wallthickening
+  P_17_enlarge_df1 = data.frame("max_grow" = c(93.11,53.56,100.85,33.72,	137.44,	57.05
+  ), "mean_grow" = c(44.72,28.49,45.73,17.83,71.09,29.91),"duration" = c(146,139,160,132,139,149),"growth" = c(1274.8,	1322.1,	1681.9,	532,	1895.4,	1523.7))
+  P_18_enlarge_df1 = data.frame("max_grow" = c(133.04,	73.41,	154.2,	44.79,	143.27,	116.28
+  ),"mean_grow" = c(66.7,40.88,57.45,23.06,75.8,63.02), "duration" = c(160, 139,  139,  85, 146,153),"growth" = c(2635,	1156.3,	874.1,	173.3,	2182.3,	2024.8))
+  P_19_enlarge_df1 = data.frame("max_grow" = c(142.12,	115.66,	159.66,	54.97,	156.17,	99.96), "mean_grow" = c(85.78,	55.23,	65.8,	26.18,	63.36,	57.7),"duration" = c(140,133  ,146,  90,  139,  140),"growth" = c(1842.7,	658,	1597.1,	282.2,	1309,	1626.1))
+  P_enlarge_df1 = rbind(P_17_enlarge_df1,P_18_enlarge_df1,P_19_enlarge_df1)
   
   A_17_enlarge_df = data.frame("max_grow" = c(36.96,	40.09,	82.12,	70.6,	53.21,	54.46
   ),"mean_grow" = c(18.28,23.83,43.11,40.29,25.01,30.47), "duration" = c(50, 43, 84, 57, 64,71),"growth" = c(818.7,	1032.7,	806.7,	520,	1881.3,	1336.6))
@@ -9805,13 +10209,31 @@ library("ggplot2")
   A_19_enlarge_df = data.frame("max_grow" = c(78.65,	80.89,	70.47,	116.05,	224.21
   ), "mean_grow" = c(46.71,54.51,32.53,55.76,80.85),"duration" = c(74,90, 31, 35, 69),"growth" = c(468.3,	7730.2,	705.6,	783.6,	798.3))      
   A_enlarge_df = rbind(A_17_enlarge_df,A_18_enlarge_df,A_19_enlarge_df)
-  
+
+  #dfs with growth duration with enlargement + wallthickening
+  A_17_enlarge_df1 = data.frame("max_grow" = c(36.96,	40.09,	82.12,	70.6,	53.21,	54.46
+  ),"mean_grow" = c(18.28,23.83,43.11,40.29,25.01,30.47), "duration" = c(78, 85, 85, 57, 104,84),"growth" = c(835.3,	1022.9,	870.2,	518.8,	1805.3,	1717.5))
+  A_18_enlarge_df1 = data.frame("max_grow" = c(166.88,	67.19,	154.14,	105.69,	161.75,	135.06
+  ), "mean_grow" = c(75.89,	38.17,	56.96,	58.75,	81.43,	67.99),"duration" = c(94,84,83,  36, 118,  83),"growth" = c(1998.2,	1428.2,	2239.2,	702.3,	5635.5,	1900))
+  #no value of length data for A28 in 2019, so 5 values for each in A_19_df
+  A_19_enlarge_df1 = data.frame("max_grow" = c(78.65,	80.89,	70.47,	116.05,	224.21
+  ), "mean_grow" = c(46.71,54.51,32.53,55.76,80.85),"duration" = c(80,90,42,76, 76),"growth" = c(468.3,	6928.4,	705.6,	1166.9,	798.3))      
+  A_enlarge_df1 = rbind(A_17_enlarge_df1,A_18_enlarge_df1,A_19_enlarge_df1)
+    
   
   Q_17_enlarge_df = data.frame("max_grow" = c(120.02,	176.21,	106.11,	156.26,	108.42,	77.97,	99.72,	136.28), "mean_grow" = c(71.11	,74.63	,56.76	,87.39	,59.72	,41.67	,52.29,	64.91),"duration" = c(87, 105,  77,  84,  77,  63,  63,  71),"growth" = c(1311.4,	1295.1,	2207.9,	1231.7,	1321.9,	1200.7,	1409.7,	1518.2
   ))
   Q_18_enlarge_df = data.frame("max_grow" = c(177.71,	143.8,	96.05,	90.49,	101.5,	108.57,	82.98), "mean_grow" = c(68.98,	73.24,	51.12,	46.07,	58.53,	64.24,45.84),"duration" = c(108, 104,  97,  97,  97, 112,  84),"growth" = c(1767.1,	3126,	2594.6,	2232.5,	2431.5,	2860.7,	2751.2))
   Q_19_enlarge_df = data.frame("max_grow" = c(195.53,	118.03,	155.79,	144.05,	91.14,	164.01,	111.59), "mean_grow" = c(82.12,67.47,78.03,82.48,50.11,97.52,75.14),"duration" = c(111,  76, 111, 118,  61, 118, 111),"growth" = c(2660.5,	1605.5,	2657.8,	2600.4,	1322.8,	4009.5,	3658.5))   
   Q_enlarge_df = rbind(Q_17_enlarge_df,Q_18_enlarge_df,Q_19_enlarge_df)      
+
+  #dfs with growth duration with enlargement + wallthickening  
+  Q_17_enlarge_df1 = data.frame("max_grow" = c(120.02,	176.21,	106.11,	156.26,	108.42,	77.97,	99.72,	136.28), "mean_grow" = c(71.11	,74.63	,56.76	,87.39	,59.72	,41.67	,52.29,	64.91),"duration" = c(119, 126,  118,  118,  91,  97,  125,  126),"growth" = c(1337.7,	1308,	2301.7,	1262,	1335,	1230,	1507,	1570
+  ))
+  Q_18_enlarge_df1 = data.frame("max_grow" = c(177.71,	143.8,	96.05,	90.49,	101.5,	108.57,	82.98), "mean_grow" = c(68.98,	73.24,	51.12,	46.07,	58.53,	64.24,45.84),"duration" = c(119, 125,  154,  125,  118, 132,  139),"growth" = c(1859.5,	3226.8,	3042.8,	2172.9,	2413.8,	2840.8,	2642.5))
+  Q_19_enlarge_df1 = data.frame("max_grow" = c(195.53,	118.03,	155.79,	144.05,	91.14,	164.01,	111.59), "mean_grow" = c(82.12,67.47,78.03,82.48,50.11,97.52,75.14),"duration" = c(139,  112, 125, 132,  115, 132, 139),"growth" = c(2925,	1730,	2621,	2559.5,	1538.3,	4083.4,	3970.8))   
+  Q_enlarge_df1 = rbind(Q_17_enlarge_df1,Q_18_enlarge_df1,Q_19_enlarge_df1) 
+  
   
   library("ppcor")
   
@@ -9851,6 +10273,25 @@ library("ggplot2")
   enlarge_df$species = c(rep("Pine",18),rep("Maple",17),rep("Oak",22))
   enlarge_df$tree = c(rep(c("P1","P2","P3","P4","P5","P6"),3),rep(c("M1","M2","M3","M4","M5","M6"),2),c("M1","M2","M3","M4","M6"),c("O1","O2","O3","O4","O5","O6","O7","O8"),c("O2","O3","O4","O5","O6","O7","O8"),c("O1","O2","O3","O4","O5","O6","O8"))
   
+  #for enlarge_df1
+  #add year and species info. into the dfs
+  P_enlarge_df1$year = c(rep(2017,6),rep(2018,6),rep(2019,6))
+  A_enlarge_df1$year = c(rep(2017,6),rep(2018,6),rep(2019,5))
+  Q_enlarge_df1$year = c(rep(2017,8),rep(2018,7),rep(2019,7))
+  
+  P_enlarge_df1$year1 = c(rep(1,6),rep(2,6),rep(3,6))
+  A_enlarge_df1$year1 = c(rep(1,6),rep(2,6),rep(3,5))
+  Q_enlarge_df1$year1 = c(rep(1,8),rep(2,7),rep(3,7))
+  
+  P_enlarge_df1$tree = c(rep(c("P1","P2","P3","P4","P5","P6"),3))
+  A_enlarge_df1$tree = c(rep(c("M1","M2","M3","M4","M5","M6"),2),c("M1","M2","M3","M4","M6"))
+  Q_enlarge_df1$tree = c(c("O1","O2","O3","O4","O5","O6","O7","O8"),c("O2","O3","O4","O5","O6","O7","O8"),c("O1","O2","O3","O4","O5","O6","O8"))
+  
+  enlarge_df1 = rbind(P_enlarge_df1,A_enlarge_df1,Q_enlarge_df1)
+  enlarge_df1$species = c(rep("Pine",18),rep("Maple",17),rep("Oak",22))
+  enlarge_df1$tree = c(rep(c("P1","P2","P3","P4","P5","P6"),3),rep(c("M1","M2","M3","M4","M5","M6"),2),c("M1","M2","M3","M4","M6"),c("O1","O2","O3","O4","O5","O6","O7","O8"),c("O2","O3","O4","O5","O6","O7","O8"),c("O1","O2","O3","O4","O5","O6","O8"))
+  
+  
   #for marginal R2 and Conditional R2  
   library("MuMIn")
   
@@ -9888,9 +10329,44 @@ library("ggplot2")
     mix_enlarge19 = lmerTest::lmer(data = enlarge_df,formula = growth ~ mean_grow * duration * species * year + (1|tree),REML = F) 
     
     
-    anova(mix_enlarge02,mix_enlarge01,mix_enlarge0,mix_enlarge,mix_enlarge1,mix_enlarge2,mix_enlarge3,mix_enlarge4,mix_enlarge5,mix_enlarge6,mix_enlarge7,mix_enlarge8,mix_enlarge9,mix_enlarge10,mix_enlarge11,mix_enlarge12,mix_enlarge13,mix_enlarge14,mix_enlarge15,mix_enlarge16,mix_enlarge17,mix_enlarge18,mix_enlarge19)
+    anova(mix_enlarge02,mix_enlarge01,mix_enlarge0,mix_enlarge,mix_enlarge1,mix_enlarge2,mix_enlarge3,mix_enlarge4,mix_enlarge5,mix_enlarge6,mix_enlarge7,mix_enlarge8,mix_enlarge9,mix_enlarge10,mix_enlarge11,mix_enlarge12,mix_enlarge13,mix_enlarge14,mix_enlarge15,mix_enlarge16,mix_enlarge17,mix_enlarge18,mix_enlarge19, mix_enlarge20,mix_enlarge21,mix_enlarge22,)
   }
   
+  #all species with duration from enlargemnt + wallthickening
+  {
+    mix_enlarge02 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ (1|tree),REML = F)
+    mix_enlarge01 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ year + (1|tree),REML = F)
+    mix_enlarge0 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ species + (1|tree),REML = F)
+    mix_enlarge = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow + (1|tree),REML = F)
+    #mix_enlarge1 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow + species + (1|tree),REML = F)
+    mix_enlarge1 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * species + (1|tree),REML = F)
+    # mix_enlarge2 = lmer(data = enlarge_df1,formula = growth ~ max_grow + year + (1|tree),REML = F)
+    mix_enlarge2 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * year + (1|tree),REML = F)
+    #mix_enlarge5 = lmer(data = enlarge_df1,formula = growth ~ max_grow + year + species + (1|tree),REML = F)
+    mix_enlarge3 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * year * species + (1|tree),REML = F)
+    mix_enlarge4 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ duration + (1|tree),REML = F)
+    mix_enlarge5 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ duration * species + (1|tree),REML = F)
+    mix_enlarge6 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ duration * year + (1|tree),REML = F)
+    mix_enlarge7 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ duration * year * species + (1|tree),REML = F)
+    mix_enlarge8 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * duration + (1|tree),REML = F)  
+    mix_enlarge9 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * duration * species + (1|tree),REML = F)  
+    mix_enlarge10 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * duration * year + (1|tree),REML = F)
+    mix_enlarge11 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow * duration * species * year + (1|tree),REML = F) 
+    mix_enlarge12 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow + (1|tree),REML = F)
+    #mix_enlarge1 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ max_grow + species + (1|tree),REML = F)
+    mix_enlarge13 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * species + (1|tree),REML = F)
+    # mix_enlarge2 = lmer(data = enlarge_df1,formula = growth ~ max_grow + year + (1|tree),REML = F)
+    mix_enlarge14 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * year + (1|tree),REML = F)
+    #mix_enlarge5 = lmer(data = enlarge_df1,formula = growth ~ max_grow + year + species + (1|tree),REML = F)
+    mix_enlarge15 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * year * species + (1|tree),REML = F)
+    mix_enlarge16 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * duration + (1|tree),REML = F)  
+    mix_enlarge17 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * duration * species + (1|tree),REML = F)  
+    mix_enlarge18 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * duration * year + (1|tree),REML = F)
+    mix_enlarge19 = lmerTest::lmer(data = enlarge_df1,formula = growth ~ mean_grow * duration * species * year + (1|tree),REML = F) 
+    
+    
+    anova(mix_enlarge02,mix_enlarge01,mix_enlarge0,mix_enlarge,mix_enlarge1,mix_enlarge2,mix_enlarge3,mix_enlarge4,mix_enlarge5,mix_enlarge6,mix_enlarge7,mix_enlarge8,mix_enlarge9,mix_enlarge10,mix_enlarge11,mix_enlarge12,mix_enlarge13,mix_enlarge14,mix_enlarge15,mix_enlarge16,mix_enlarge17,mix_enlarge18,mix_enlarge19)
+  }
   
   #each species
   #QURU
@@ -9959,6 +10435,75 @@ library("ggplot2")
     
     anova(mix_enlarge_p01,mix_enlarge_p0,mix_enlarge_p1,mix_enlarge_p2,mix_enlarge_p3,mix_enlarge_p4,mix_enlarge_p5,mix_enlarge_p6,mix_enlarge_p7,mix_enlarge_p8,mix_enlarge_p9)
   }
+  
+  #each species with duration from enlargemnt + wallthickening 
+  #QURU
+  {
+    mix_enlarge_o01 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ (1|tree),REML = F)
+    mix_enlarge_o0 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ year1 + (1|tree))    
+    #mix_enlarge_o0_test = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ year1 + (year1|tree))   
+    mix_enlarge_o1 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ max_grow + (1|tree))
+    #mix_enlarge1 = lmerTest::lmer(data = enlarge_df,formula = growth ~ max_grow + species + (1|tree),REML = F)
+    # mix_enlarge2 = lmer(data = enlarge_df,formula = growth ~ max_grow + year + (1|tree),REML = F)
+    mix_enlarge_o2 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ max_grow * year1 + (1|tree))
+    #mix_enlarge5 = lmer(data = enlarge_df,formula = growth ~ max_grow + year + species + (1|tree),REML = F)
+    mix_enlarge_o3 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ duration + (1|tree))
+    mix_enlarge_o4 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ duration * year1 + (1|tree))
+    mix_enlarge_o5 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ max_grow * duration + (1|tree))  
+    mix_enlarge_o6 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ max_grow * duration * year1 + (1|tree))
+    mix_enlarge_o7 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ mean_grow + (1|tree))
+    mix_enlarge_o8 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ mean_grow * year1 + (1|tree))
+    mix_enlarge_o9 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ mean_grow * duration + (1|tree))  
+    mix_enlarge_o10 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ mean_grow * duration * year1 + (1|tree))
+    mix_enlarge_o11 = lmerTest::lmer(data = Q_enlarge_df1,formula = growth ~ max_grow * duration * year1 + (1|tree))
+    
+    
+    
+    anova(mix_enlarge_o01,mix_enlarge_o0,mix_enlarge_o1,mix_enlarge_o2,mix_enlarge_o3,mix_enlarge_o4,mix_enlarge_o5,mix_enlarge_o6,mix_enlarge_o7,mix_enlarge_o8,mix_enlarge_o9,mix_enlarge_o10,mix_enlarge_o11)
+  } 
+  #ACRU
+  {
+    mix_enlarge_a01 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ (1|tree))
+    mix_enlarge_a0 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ year1 + (1|tree))
+    mix_enlarge_a1 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ max_grow + (1|tree))
+    #mix_enlarge1 = lmerTest::lmer(data = enlarge_df,formula = growth ~ max_grow + species + (1|tree),REML = F)
+    # mix_enlarge2 = lmer(data = enlarge_df,formula = growth ~ max_grow + year + (1|tree),REML = F)
+    mix_enlarge_a2 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ max_grow * year1 + (1|tree))
+    #mix_enlarge5 = lmer(data = enlarge_df,formula = growth ~ max_grow + year + species + (1|tree),REML = F)
+    mix_enlarge_a3 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ duration + (1|tree))
+    mix_enlarge_a4 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ duration * year1 + (1|tree))
+    mix_enlarge_a5 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ max_grow * duration + (1|tree))  
+    mix_enlarge_a6 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ max_grow * duration *year1 + (1|tree))
+    mix_enlarge_a7 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ mean_grow + (1|tree))
+    mix_enlarge_a8 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ mean_grow * year1 + (1|tree))
+    mix_enlarge_a9 = lmerTest::lmer(data = A_enlarge_df1,formula = growth ~ mean_grow * duration * year1 + (1|tree))
+    
+    
+    
+    
+    anova(mix_enlarge_a01,mix_enlarge_a0,mix_enlarge_a1,mix_enlarge_a2,mix_enlarge_a3,mix_enlarge_a4,mix_enlarge_a5,mix_enlarge_a6,mix_enlarge_a7,mix_enlarge_a8,mix_enlarge_a9)
+  }   
+  #PIST
+  {
+    mix_enlarge_pp01 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ (1|tree))
+    mix_enlarge_pp0 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ year1 +(1|tree))
+    mix_enlarge_pp1 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ max_grow + (1|tree))
+    #mix_enlarge1 = lmerTest::lmer(data = enlarge_df,formula = growth ~ max_grow + species + (1|tree),REML = F)
+    # mix_enlarge2 = lmer(data = enlarge_df,formula = growth ~ max_grow + year + (1|tree),REML = F)
+    mix_enlarge_pp2 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ max_grow * year1 + (1|tree))
+    #mix_enlarge5 = lmer(data = enlarge_df,formula = growth ~ max_grow + year + species + (1|tree),REML = F)
+    mix_enlarge_pp3 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ duration + (1|tree))
+    mix_enlarge_pp4 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ duration * year1 + (1|tree))
+    mix_enlarge_pp5 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ max_grow * duration + (1|tree))  
+    mix_enlarge_pp6 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ max_grow * duration * year1 + (1|tree))
+    mix_enlarge_pp7 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ mean_grow + (1|tree))
+    mix_enlarge_pp8 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ mean_grow * year1 + (1|tree))
+    mix_enlarge_pp9 = lmerTest::lmer(data = P_enlarge_df1,formula = growth ~ mean_grow * duration * year1 + (1|tree))
+    
+    
+    anova(mix_enlarge_pp01,mix_enlarge_pp0,mix_enlarge_pp1,mix_enlarge_pp2,mix_enlarge_pp3,mix_enlarge_pp4,mix_enlarge_pp5,mix_enlarge_pp6,mix_enlarge_pp7,mix_enlarge_pp8,mix_enlarge_pp9)
+  }
+  
   
   #PIST random effect:year
   {
@@ -10612,6 +11157,86 @@ temp_cdd_dd_17_19 = read.csv("temp_dd_17_19_CDD.csv")
   dev.off()   
 }
 
+#GDD new color & strips
+{
+
+  pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\p_GDD_2.5_2022_3_14.pdf",width =5,height = 5)
+  
+  p_GDD_2.5 <- ggplot()+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.2.5_2017_acc,color = "a"),size = 1.5)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.2.5_2018_acc,color = "b"),size = 1.5)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.2.5_2019_acc,color = "c"),size = 1.5)+
+    xlab("DY")+
+    ylab("GDD_2.5")+
+    scale_color_manual(name = '',values = c("a" = "#4DBBD5FF","b" = "#99A987FF","c" = "#F39B7FFF"),labels = c('2017','2018','2019'))+
+    xlim(50,175)+
+    scale_y_continuous(breaks = seq(0,800,100))+
+    theme_set(theme_classic())+
+    #theme(panel.grid.major=element_line(colour=NA))+
+    #theme(legend.position = "none")+
+    theme(legend.position = c(0.15,0.6),legend.text = element_text(size = 20),legend.title=element_blank())+
+    theme(axis.text = element_text(size =20),axis.text.x = element_text(size =20),axis.text.y = element_text(size =20),axis.title.x=element_text(size=20),axis.title.y=element_text(size=20))
+  
+  
+  p_GDD_2.5
+  dev.off()      
+  
+  pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\p_GDD_5_2022_3_14.pdf",width =5,height = 5)
+  
+  p_GDD_5 <- ggplot()+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.5_2017_acc,color = "a"),size = 1.5)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.5_2018_acc,color = "b"),size = 1.5)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.5_2019_acc,color = "c"),size = 1.5)+
+    xlab("DY")+
+    ylab("GDD_5")+
+    scale_color_manual(name = '',values = c("a" = "#4DBBD5FF","b" = "#99A987FF","c" = "#F39B7FFF"),labels = c('2017','2018','2019'))+
+    xlim(50,175)+
+    theme_set(theme_classic())+
+    theme(legend.position = "none")+
+    #theme(panel.grid.major=element_line(colour=NA))+
+    #theme(legend.position = c(0.15,0.85),legend.text = element_text(size = 20))+
+    theme(axis.text = element_text(size =20),axis.text.x = element_text(size =20),axis.text.y = element_text(size =20),axis.title.x=element_text(size=20),axis.title.y=element_text(size=20))
+  
+  p_GDD_5
+  dev.off()    
+  
+  pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\p_GDD_7.5_2022_3_14.pdf",width =5,height = 5)
+  
+  p_GDD_7.5 <- ggplot()+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.7.5_2017_acc,color = "a"),size = 1.5)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.7.5_2018_acc,color = "b"),size = 1.5)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.7.5_2019_acc,color = "c"),size = 1.5)+
+    xlab("DY")+
+    ylab("GDD_7.5")+
+    scale_color_manual(name = '',values = c("a" = "#4DBBD5FF","b" = "#99A987FF","c" = "#F39B7FFF"),labels = c('2017','2018','2019'))+
+    xlim(50,175)+
+    theme_set(theme_classic())+
+    theme(legend.position = "none")+
+    #theme(panel.grid.major=element_line(colour=NA))+
+    #theme(legend.position = c(0.15,0.85),legend.text = element_text(size = 20))+
+    theme(axis.text = element_text(size =20),axis.text.x = element_text(size =20),axis.text.y = element_text(size =20),axis.title.x=element_text(size=20),axis.title.y=element_text(size=20))
+  
+  p_GDD_7.5
+  dev.off()   
+  
+  pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\p_GDD_10.pdf",width =12,height = 5)  
+  
+  p_GDD_10 <- ggplot()+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.10_2017_acc),color = "blue",size = 1)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.10_2018_acc),color = "darkgreen",size = 1)+
+    geom_line(data = temp_gdd_dd_17_19,aes(x=DY,y=X.10_2019_acc),color = "darkred",size = 1)+
+    xlab("DY")+
+    ylab("GDD_10")+
+    xlim(0,250)+
+    theme_set(theme_bw())+
+    theme(panel.grid.major=element_line(colour=NA))+
+    theme(legend.position = c(0.15,0.85),legend.text = element_text(size = 12))+
+    theme(axis.text = element_text(size =12),axis.text.x = element_text(size =12),axis.text.y = element_text(size =12),axis.title.x=element_text(size=12),axis.title.y=element_text(size=12))
+  
+  p_GDD_10
+  dev.off()   
+}
+
 #CDD
 {
   pdf("D:\\MEGA\\Live_cases\\Hybrid\\Harvard Forest\\HF_obs_data_cluster\\Graph_output\\p_CDD_0.pdf",width =12,height = 5)
@@ -10893,6 +11518,14 @@ temp_cdd_dd_17_19 = read.csv("temp_dd_17_19_CDD.csv")
   HF_oak_com1 = rbind(HF2017_oak_com1,HF2018_oak_com1,HF2019_oak_com1)
   HF_pine_com1 = rbind(HF2017_pine_com1,HF2018_pine_com1,HF2019_pine_com1)
   
+  write.csv(HF_maple_com1,"HF_maple_com1.csv")
+  write.csv(HF_oak_com1,"HF_oak_com1.csv")
+  write.csv(HF_pine_com1,"HF_pine_com1.csv")
+  
+  HF_maple_com1 = read.csv("HF_maple_com1_PET_included.csv")
+  HF_oak_com1 = read.csv("HF_oak_com1_PET_included.csv")
+  HF_pine_com1 = read.csv("HF_pine_com1_PET_included.csv")
+  
   
   #separate years  
   #maple
@@ -10903,12 +11536,15 @@ temp_cdd_dd_17_19 = read.csv("temp_dd_17_19_CDD.csv")
     mix_clim_m1 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL + (1|Tree),REML = F) 
     mix_clim_m2 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ ta + (1|Tree),REML = F) 
     mix_clim_m3 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ prec + (1|Tree),REML = F)
-    mix_clim_m4 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + (1|Tree),REML = F) 
-    mix_clim_m5 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ ta * Year1 + (1|Tree),REML = F) 
-    mix_clim_m6 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ prec* Year1 + (1|Tree),REML = F)
-    mix_clim_m7 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + ta * Year1 + (1|Tree),REML = F)
-    mix_clim_m8 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + prec * Year1 + (1|Tree),REML = F)
-    mix_clim_m9 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ prec * Year1 + ta * Year1 + (1|Tree),REML = F)
+    mix_clim_m4 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ pet + (1|Tree),REML = F)
+    mix_clim_m5 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + (1|Tree),REML = F) 
+    mix_clim_m6 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ ta * Year1 + (1|Tree),REML = F) 
+    mix_clim_m7 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ prec * Year1 + (1|Tree),REML = F)
+    mix_clim_m8 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ pet * Year1 + (1|Tree),REML = F)
+    mix_clim_m9 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + ta * Year1 + (1|Tree),REML = F)
+    mix_clim_m10 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + prec * Year1 + (1|Tree),REML = F)
+    mix_clim_m11 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ prec * Year1 + ta * Year1 + (1|Tree),REML = F)
+    
     mix_clim_m10 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * Year1 + ta * Year1 +  prec * Year1 + (1|Tree),REML = F)
     mix_clim_m11 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ DL * ta * Year1 + (1|Tree),REML = F)
     mix_clim_m12 = lmerTest::lmer(data = HF_maple_com1,formula = gam_EZ ~ prec * ta * Year1 + (1|Tree),REML = F)
@@ -10920,13 +11556,14 @@ temp_cdd_dd_17_19 = read.csv("temp_dd_17_19_CDD.csv")
   
   #oak
   
-  HF_oak_com1$Year1 = c(rep(1,279),rep(2,245),rep(3,187))
+  HF_oak_com1$Year1 = c(rep(1,278),rep(2,245),rep(3,187))
   {
     mix_clim_o01 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ (1|Tree),REML = F) 
     mix_clim_o0 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ Year1 + (1|Tree),REML = F) 
     mix_clim_o1 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ DL + (1|Tree),REML = F) 
     mix_clim_o2 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ ta + (1|Tree),REML = F) 
     mix_clim_o3 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ prec + (1|Tree),REML = F)
+    mix_clim_o4 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ pet + (1|Tree),REML = F)
     mix_clim_o4 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ DL * Year1 + (1|Tree),REML = F) 
     mix_clim_o5 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ ta * Year1 + (1|Tree),REML = F) 
     mix_clim_o6 = lmerTest::lmer(data = HF_oak_com1,formula = gam_EZ ~ prec* Year1 + (1|Tree),REML = F)
